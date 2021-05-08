@@ -5,8 +5,8 @@
 replicaCount: 1
 
 hivePrometheusExporter:
-  hiveUsername:
-  hivePasswordSecretName:
+  hiveUsername: username
+  hivePasswordSecretName: secret
   hivePasswordSecretKey: password
   pollingIntervalSeconds: 60
 
