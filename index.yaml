@@ -3,6 +3,16 @@ entries:
   hive-prometheus-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-05-08T20:42:32.975497455Z"
+    description: A Prometheus exporter for Hive Home smart devices
+    digest: 09db70161c3127c432546c4cdd163020749fc769ee3c6486b64829fcf592c768
+    name: hive-prometheus-exporter
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/hive-prometheus-exporter-0.1.1/hive-prometheus-exporter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-05-08T20:27:41.338694929Z"
     description: A Helm chart for Kubernetes
     digest: 401911c7c963f0d91babb3be3b936901fd09917fb9f8d1063bb2732884c02835
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/hive-prometheus-exporter-0.1.0/hive-prometheus-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-05-08T20:27:41.338699329Z"
+generated: "2021-05-08T20:42:32.975506555Z"
