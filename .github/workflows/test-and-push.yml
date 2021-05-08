@@ -1,4 +1,4 @@
-name: Test and Push
+name: Release
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - "main"
 
 jobs:
-  test-and-push:
-    name: install-chart
+  release:
+    name: release
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,16 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Create kind ${{ matrix.k8s }} cluster
-        uses: helm/kind-action@main
-        with:
-          node_image: kindest/node:${{ matrix.k8s }}
-      - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@main
-        with:
-          command: install
-          config: .github/ct.yml
-
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
