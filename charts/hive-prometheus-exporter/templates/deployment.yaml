@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "hive-prometheus-exporter.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "hive-prometheus-exporter.selectorLabels" . | nindent 6 }}
