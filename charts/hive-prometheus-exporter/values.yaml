@@ -74,7 +74,7 @@ serviceMonitor:
   ##
   interval: ""
   metricRelabelings: []
-    relabelings: []
+  relabelings: []
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
