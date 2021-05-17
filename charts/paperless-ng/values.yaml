@@ -21,6 +21,7 @@ paperless:
     # data_dir: /usr/src/paperless-volume/data
     # media_dir: /usr/src/paperless-volume/media
     # static_dir: /usr/src/paperless-volume/static
+    # consumer_polling: 60
 
 imagePullSecrets: []
 nameOverride: ""
