@@ -83,6 +83,18 @@ spec:
           - name: PAPERLESS_CONSUMER_POLLING
             value: {{ .Values.paperless.config.consumer_polling | quote }}
           {{- end }}
+          {{- if .Values.paperless.config.admin_user }}
+          - name: PAPERLESS_ADMIN_USER
+            value: {{ .Values.paperless.config.admin_user }}
+          {{- end }}
+          {{- if .Values.paperless.config.admin_password }}
+          - name: PAPERLESS_ADMIN_PASSWORD
+            value: {{ .Values.paperless.config.admin_password }}
+          {{- end }}
+          {{- if .Values.paperless.config.auto_login_username }}
+          - name: PAPERLESS_AUTO_LOGIN_USERNAME
+            value: {{ .Values.paperless.config.auto_login_username }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
