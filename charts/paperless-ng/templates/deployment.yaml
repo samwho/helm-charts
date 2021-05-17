@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paperless-ng.fullname" . }}
+  labels:
+    {{- include "paperless-ng.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "paperless-ng.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "paperless-ng.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "paperless-ng.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-redis
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "redis:6.0"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: redis
+              containerPort: 6379
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: redis
+          readinessProbe:
+            tcpSocket:
+              port: redis
+          env:
+          {{- if .Values.paperless.config.dbhost }}
+          - name: PAPERNESS_DBHOST
+            value: {{ .Values.paperless.config.dbhost }}
+          {{- end }}
+          {{- if .Values.paperless.config.dbport }}
+          - name: PAPERNESS_DBPORT
+            value: {{ .Values.paperless.config.dbport }}
+          {{- end }}
+          {{- if .Values.paperless.config.dbuser }}
+          - name: PAPERNESS_DBUSER
+            value: {{ .Values.paperless.config.dbuser }}
+          {{- end }}
+          {{- if .Values.paperless.config.dbpass }}
+          - name: PAPERNESS_DBPASS
+            value: {{ .Values.paperless.config.dbpass }}
+          {{- end }}
+          {{- if .Values.paperless.config.dbsslmode }}
+          - name: PAPERNESS_DBSSLMODE
+            value: {{ .Values.paperless.config.dbsslmode }}
+          {{- end }}
+          {{- if .Values.paperless.config.consumption_dir }}
+          - name: PAPERNESS_CONSUMPTION_DIR
+            value: {{ .Values.paperless.config.consumption_dir }}
+          {{- end }}
+          {{- if .Values.paperless.config.data_dir }}
+          - name: PAPERNESS_DATA_DIR
+            value: {{ .Values.paperless.config.data_dir }}
+          {{- end }}
+          {{- if .Values.paperless.config.media_dir }}
+          - name: PAPERNESS_MEDIA_DIR
+            value: {{ .Values.paperless.config.media_dir }}
+          {{- end }}
+          {{- if .Values.paperless.config.static_dir }}
+          - name: PAPERNESS_STATIC_DIR
+            value: {{ .Values.paperless.config.static_dir }}
+          {{- end }}
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          {{- if .Values.persistentVolumeClaim.enabled }}
+          volumeMounts:
+          - mountPath: /usr/src/paperless/
+            name: {{ .Chart.Name }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.persistentVolumeClaim.enabled }}
+      volumes:
+      - name: {{ .Chart.Name }}
+        persistentVolumeClaim:
+          claimName: {{ .Chart.Name }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
