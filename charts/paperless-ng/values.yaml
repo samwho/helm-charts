@@ -19,7 +19,7 @@ paperless:
     # dbsslmode:
     # consumption_dir: /usr/src/paperless-volume/consume
     # data_dir: /usr/src/paperless-volume/data
-    # media_dir: /usr/src/paperless-volume/media
+    # media_root: /usr/src/paperless-volume/media
     # static_dir: /usr/src/paperless-volume/static
     # consumer_polling: 60
     # admin_user: admin

@@ -71,9 +71,9 @@ spec:
           - name: PAPERLESS_DATA_DIR
             value: {{ .Values.paperless.config.data_dir }}
           {{- end }}
-          {{- if .Values.paperless.config.media_dir }}
-          - name: PAPERLESS_MEDIA_DIR
-            value: {{ .Values.paperless.config.media_dir }}
+          {{- if .Values.paperless.config.media_root }}
+          - name: PAPERLESS_MEDIA_ROOT
+            value: {{ .Values.paperless.config.media_root }}
           {{- end }}
           {{- if .Values.paperless.config.static_dir }}
           - name: PAPERLESS_STATIC_DIR
