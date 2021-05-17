@@ -87,7 +87,7 @@ tolerations: []
 
 affinity: {}
 
-persistentVolumeClaim: {}
+persistentVolumeClaim:
   enabled: false
   storage: 100Gi
   storageClass: nfs-client
