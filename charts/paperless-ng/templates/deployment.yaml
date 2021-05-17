@@ -81,7 +81,7 @@ spec:
           {{- end }}
           {{- if .Values.paperless.config.consumer_polling }}
           - name: PAPERNESS_CONSUMER_POLLING
-            value: {{ .Values.paperless.config.consumer_polling }}
+            value: {{ .Values.paperless.config.consumer_polling | quote }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
