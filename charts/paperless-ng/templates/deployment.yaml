@@ -76,7 +76,7 @@ spec:
             value: {{ .Values.paperless.config.media_root }}
           {{- end }}
           {{- if .Values.paperless.config.static_dir }}
-          - name: PAPERLESS_STATIC_DIR
+          - name: PAPERLESS_STATICDIR
             value: {{ .Values.paperless.config.static_dir }}
           {{- end }}
           {{- if .Values.paperless.config.consumer_polling }}
