@@ -44,43 +44,43 @@ spec:
         - name: {{ .Chart.Name }}
           env:
           {{- if .Values.paperless.config.dbhost }}
-          - name: PAPERNESS_DBHOST
+          - name: PAPERLESS_DBHOST
             value: {{ .Values.paperless.config.dbhost }}
           {{- end }}
           {{- if .Values.paperless.config.dbport }}
-          - name: PAPERNESS_DBPORT
+          - name: PAPERLESS_DBPORT
             value: {{ .Values.paperless.config.dbport }}
           {{- end }}
           {{- if .Values.paperless.config.dbuser }}
-          - name: PAPERNESS_DBUSER
+          - name: PAPERLESS_DBUSER
             value: {{ .Values.paperless.config.dbuser }}
           {{- end }}
           {{- if .Values.paperless.config.dbpass }}
-          - name: PAPERNESS_DBPASS
+          - name: PAPERLESS_DBPASS
             value: {{ .Values.paperless.config.dbpass }}
           {{- end }}
           {{- if .Values.paperless.config.dbsslmode }}
-          - name: PAPERNESS_DBSSLMODE
+          - name: PAPERLESS_DBSSLMODE
             value: {{ .Values.paperless.config.dbsslmode }}
           {{- end }}
           {{- if .Values.paperless.config.consumption_dir }}
-          - name: PAPERNESS_CONSUMPTION_DIR
+          - name: PAPERLESS_CONSUMPTION_DIR
             value: {{ .Values.paperless.config.consumption_dir }}
           {{- end }}
           {{- if .Values.paperless.config.data_dir }}
-          - name: PAPERNESS_DATA_DIR
+          - name: PAPERLESS_DATA_DIR
             value: {{ .Values.paperless.config.data_dir }}
           {{- end }}
           {{- if .Values.paperless.config.media_dir }}
-          - name: PAPERNESS_MEDIA_DIR
+          - name: PAPERLESS_MEDIA_DIR
             value: {{ .Values.paperless.config.media_dir }}
           {{- end }}
           {{- if .Values.paperless.config.static_dir }}
-          - name: PAPERNESS_STATIC_DIR
+          - name: PAPERLESS_STATIC_DIR
             value: {{ .Values.paperless.config.static_dir }}
           {{- end }}
           {{- if .Values.paperless.config.consumer_polling }}
-          - name: PAPERNESS_CONSUMER_POLLING
+          - name: PAPERLESS_CONSUMER_POLLING
             value: {{ .Values.paperless.config.consumer_polling | quote }}
           {{- end }}
           securityContext:
