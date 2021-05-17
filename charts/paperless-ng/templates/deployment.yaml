@@ -97,7 +97,7 @@ spec:
               port: http
           {{- if .Values.persistentVolumeClaim.enabled }}
           volumeMounts:
-          - mountPath: /usr/src/paperless/
+          - mountPath: {{ .Values.persistentVolumeClaim.mountPath }}
             name: {{ .Chart.Name }}
           {{- end }}
           resources:

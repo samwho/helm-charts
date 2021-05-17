@@ -17,10 +17,10 @@ paperless:
     # dbuser:
     # dbpass:
     # dbsslmode:
-    consumption_dir: /usr/src/paperless/consume
-    data_dir: /usr/src/paperless/data
-    media_dir: /usr/src/paperless/media
-    static_dir: /usr/src/paperless/static
+    # consumption_dir: /usr/src/paperless-volume/consume
+    # data_dir: /usr/src/paperless-volume/data
+    # media_dir: /usr/src/paperless-volume/media
+    # static_dir: /usr/src/paperless-volume/static
 
 imagePullSecrets: []
 nameOverride: ""
@@ -88,7 +88,8 @@ tolerations: []
 affinity: {}
 
 persistentVolumeClaim: {}
-  # enabled: true
-  # storage: 100Gi
-  # storageClass: nfs-client
-  # accessMode: ReadWriteOnce
+  enabled: false
+  storage: 100Gi
+  storageClass: nfs-client
+  accessMode: ReadWriteOnce
+  mountPath: /usr/src/paperless-volume/
