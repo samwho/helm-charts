@@ -41,6 +41,7 @@ spec:
           readinessProbe:
             tcpSocket:
               port: redis
+        - name: {{ .Chart.Name }}
           env:
           {{- if .Values.paperless.config.dbhost }}
           - name: PAPERNESS_DBHOST
@@ -78,7 +79,6 @@ spec:
           - name: PAPERNESS_STATIC_DIR
             value: {{ .Values.paperless.config.static_dir }}
           {{- end }}
-        - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
