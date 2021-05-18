@@ -45,39 +45,39 @@ spec:
           env:
           {{- if .Values.paperless.config.dbhost }}
           - name: PAPERLESS_DBHOST
-            value: {{ .Values.paperless.config.dbhost }}
+            value: {{ .Values.paperless.config.dbhost | quote }}
           {{- end }}
           {{- if .Values.paperless.config.dbport }}
           - name: PAPERLESS_DBPORT
-            value: {{ .Values.paperless.config.dbport }}
+            value: {{ .Values.paperless.config.dbport | quote }}
           {{- end }}
           {{- if .Values.paperless.config.dbuser }}
           - name: PAPERLESS_DBUSER
-            value: {{ .Values.paperless.config.dbuser }}
+            value: {{ .Values.paperless.config.dbuser | quote }}
           {{- end }}
           {{- if .Values.paperless.config.dbpass }}
           - name: PAPERLESS_DBPASS
-            value: {{ .Values.paperless.config.dbpass }}
+            value: {{ .Values.paperless.config.dbpass | quote }}
           {{- end }}
           {{- if .Values.paperless.config.dbsslmode }}
           - name: PAPERLESS_DBSSLMODE
-            value: {{ .Values.paperless.config.dbsslmode }}
+            value: {{ .Values.paperless.config.dbsslmode | quote }}
           {{- end }}
           {{- if .Values.paperless.config.consumption_dir }}
           - name: PAPERLESS_CONSUMPTION_DIR
-            value: {{ .Values.paperless.config.consumption_dir }}
+            value: {{ .Values.paperless.config.consumption_dir | quote }}
           {{- end }}
           {{- if .Values.paperless.config.data_dir }}
           - name: PAPERLESS_DATA_DIR
-            value: {{ .Values.paperless.config.data_dir }}
+            value: {{ .Values.paperless.config.data_dir | quote }}
           {{- end }}
           {{- if .Values.paperless.config.media_root }}
           - name: PAPERLESS_MEDIA_ROOT
-            value: {{ .Values.paperless.config.media_root }}
+            value: {{ .Values.paperless.config.media_root | quote }}
           {{- end }}
           {{- if .Values.paperless.config.static_dir }}
           - name: PAPERLESS_STATICDIR
-            value: {{ .Values.paperless.config.static_dir }}
+            value: {{ .Values.paperless.config.static_dir | quote }}
           {{- end }}
           {{- if .Values.paperless.config.consumer_polling }}
           - name: PAPERLESS_CONSUMER_POLLING
@@ -85,15 +85,15 @@ spec:
           {{- end }}
           {{- if .Values.paperless.config.admin_user }}
           - name: PAPERLESS_ADMIN_USER
-            value: {{ .Values.paperless.config.admin_user }}
+            value: {{ .Values.paperless.config.admin_user | quote }}
           {{- end }}
           {{- if .Values.paperless.config.admin_password }}
           - name: PAPERLESS_ADMIN_PASSWORD
-            value: {{ .Values.paperless.config.admin_password }}
+            value: {{ .Values.paperless.config.admin_password | quote }}
           {{- end }}
           {{- if .Values.paperless.config.auto_login_username }}
           - name: PAPERLESS_AUTO_LOGIN_USERNAME
-            value: {{ .Values.paperless.config.auto_login_username }}
+            value: {{ .Values.paperless.config.auto_login_username | quote }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
