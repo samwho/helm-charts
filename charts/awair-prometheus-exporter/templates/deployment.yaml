@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: METRICS_PORT
-            value: {{ .Values.awairPrometheusExporter.metricsPort }}
+            value: {{ .Values.awairPrometheusExporter.metricsPort | quote }}
           - name: TARGET
             value: {{ .Values.awairPrometheusExporter.target | quote }}
           ports:
