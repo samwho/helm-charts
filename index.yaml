@@ -3,6 +3,16 @@ entries:
   awair-prometheus-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-09-22T20:17:08.450093678Z"
+    description: A Prometheus exporter for the Awair Element
+    digest: c4b9bb26a634d24490da922f9776dc5e807c63deb39cf17ba401a49f2edc3061
+    name: awair-prometheus-exporter
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/awair-prometheus-exporter-0.1.2/awair-prometheus-exporter-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-09-22T20:08:41.769794434Z"
     description: A Prometheus exporter for the Awair Element
     digest: 763d9c9a64c625917fa4f733461d2404700be96cc2f8ec9d2f81681f469e545e
@@ -203,4 +213,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-22T20:08:41.769876039Z"
+generated: "2021-09-22T20:17:08.450157981Z"
