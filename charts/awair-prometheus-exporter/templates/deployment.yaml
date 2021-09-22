@@ -33,12 +33,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: METRICS_PORT
-            value: {{ .Values.awaitPrometheusExporter.metricsPort }}
+            value: {{ .Values.awairPrometheusExporter.metricsPort }}
           - name: TARGET
             value: {{ .Values.awairPrometheusExporter.target | quote }}
           ports:
             - name: http
-              containerPort: {{ .Values.awaitPrometheusExporter.metricsPort }}
+              containerPort: {{ .Values.awairPrometheusExporter.metricsPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
