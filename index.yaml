@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  archivebox:
+  - apiVersion: v2
+    appVersion: 0.6.2
+    created: "2021-10-23T19:50:49.592558224Z"
+    description: A Helm chart for Kubernetes
+    digest: a0721185b5454672d8965ad2f0a143ad21e7fe7a32f72c8323d7b6e9e09bcd6f
+    name: archivebox
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/archivebox-0.1.0/archivebox-0.1.0.tgz
+    version: 0.1.0
   awair-prometheus-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -223,4 +234,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-22T20:25:39.967923191Z"
+generated: "2021-10-23T19:50:49.59277732Z"
