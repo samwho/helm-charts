@@ -85,6 +85,16 @@ entries:
     version: 0.1.0
   paperless-ng:
   - apiVersion: v2
+    appVersion: 1.6.0
+    created: "2022-03-30T20:21:43.556381504Z"
+    description: A Helm chart for Kubernetes
+    digest: 63b807ebc31a86f8e4d9519766dee77c0458617a39290d06b8737455678f667c
+    name: paperless-ng
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.3.0/paperless-ng-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: 1.5.0
     created: "2021-09-06T15:31:06.885717173Z"
     description: A Helm chart for Kubernetes
@@ -234,4 +244,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-23T19:50:49.59277732Z"
+generated: "2022-03-30T20:21:43.556676323Z"
