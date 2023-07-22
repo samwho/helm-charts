@@ -100,7 +100,7 @@ spec:
             value: {{ .Values.paperless.config.enable_http_remote_user | quote }}
           {{- end }}
           {{- if .Values.paperless.config.http_remote_user_header }}
-          - name: PAPERLESS_HTTP_REMOTE_USER_HEADER
+          - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
             value: {{ .Values.paperless.config.http_remote_user_header | quote }}
           {{- end }}
           securityContext:

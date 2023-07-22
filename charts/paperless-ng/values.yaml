@@ -27,7 +27,7 @@ paperless:
     # admin_password: password
     # auto_login_username: admin
     # enable_http_remote_user: false
-    # http_remote_user_header: HTTP_REMOTE_USER
+    # http_remote_user_header_name: HTTP_REMOTE_USER
 
 imagePullSecrets: []
 nameOverride: ""
