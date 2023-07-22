@@ -103,6 +103,10 @@ spec:
           - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
             value: {{ .Values.paperless.config.http_remote_user_header_name | quote }}
           {{- end }}
+          {{- if .Values.paperless.config.url }}
+          - name: PAPERLESS_URL
+            value: {{ .Values.paperless.config.url | quote }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
