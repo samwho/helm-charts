@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/paperless-ngx/paperless-ngx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.8"
+  tag: "1.16.5"
 
 paperless:
   config:
@@ -26,6 +26,8 @@ paperless:
     # admin_user: admin
     # admin_password: password
     # auto_login_username: admin
+    # enable_http_remote_user: false
+    # http_remote_user_header: HTTP_REMOTE_USER
 
 imagePullSecrets: []
 nameOverride: ""

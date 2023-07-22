@@ -95,6 +95,14 @@ spec:
           - name: PAPERLESS_AUTO_LOGIN_USERNAME
             value: {{ .Values.paperless.config.auto_login_username | quote }}
           {{- end }}
+          {{- if .Values.paperless.config.enable_http_remote_user }}
+          - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
+            value: {{ .Values.paperless.config.enable_http_remote_user | quote }}
+          {{- end }}
+          {{- if .Values.paperless.config.http_remote_user_header }}
+          - name: PAPERLESS_HTTP_REMOTE_USER_HEADER
+            value: {{ .Values.paperless.config.http_remote_user_header | quote }}
+          {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
