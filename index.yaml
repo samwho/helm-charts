@@ -55,6 +55,16 @@ entries:
   golinks:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-07-23T10:31:54.767052863Z"
+    description: A chart to get Tailscale's golinks running on Kubernetes
+    digest: 848bf7cd693a540c8551be1da1f37a320273b7de5b8716643ef44de95521b174
+    name: golinks
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/golinks-0.1.1/golinks-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-07-23T10:26:32.780015274Z"
     description: A chart to get Tailscale's golinks running on Kubernetes
     digest: e283a0733d4f36e767675f3f161b2ccc8fcff540e445937109641f37342feb8e
@@ -315,4 +325,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-23T10:26:32.780073277Z"
+generated: "2023-07-23T10:31:54.767103363Z"
