@@ -52,6 +52,17 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/awair-prometheus-exporter-0.1.0/awair-prometheus-exporter-0.1.0.tgz
     version: 0.1.0
+  golinks:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-07-23T10:26:32.780015274Z"
+    description: A chart to get Tailscale's golinks running on Kubernetes
+    digest: e283a0733d4f36e767675f3f161b2ccc8fcff540e445937109641f37342feb8e
+    name: golinks
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/golinks-0.1.0/golinks-0.1.0.tgz
+    version: 0.1.0
   hive-prometheus-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -304,4 +315,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-22T21:52:37.223759033Z"
+generated: "2023-07-23T10:26:32.780073277Z"
