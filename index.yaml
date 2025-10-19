@@ -345,4 +345,15 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-23T10:48:49.971036863Z"
+  uptime-kuma:
+  - apiVersion: v2
+    appVersion: 1.23.16
+    created: "2025-10-19T15:01:02.880657829Z"
+    description: A Helm chart for deploying Uptime Kuma
+    digest: 3f88e531aac8cb4261bb20379e8d18e35037f621555447c1ec042e4716ca9280
+    name: uptime-kuma
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/uptime-kuma-0.1.0/uptime-kuma-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-10-19T15:01:02.880786109Z"
