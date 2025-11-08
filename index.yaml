@@ -348,6 +348,19 @@ entries:
   terminus:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-11-08T12:51:41.474192327Z"
+    description: Deploy the Terminus (BYOS Hanami) stack including the web UI, worker,
+      PostgreSQL, and Redis.
+    digest: 1a8684713867b8d373a7d3a162dd524c35c3f03f117dcb8a4dd893e7a35e94b7
+    name: terminus
+    sources:
+    - https://github.com/usetrmnl/byos_hanami
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/terminus-0.2.0/terminus-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2025-11-08T12:27:28.871869591Z"
     description: Deploy the Terminus (BYOS Hanami) stack including the web UI, worker,
       PostgreSQL, and Redis.
@@ -370,4 +383,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/uptime-kuma-0.1.0/uptime-kuma-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-08T12:27:28.871950432Z"
+generated: "2025-11-08T12:51:41.474273879Z"
