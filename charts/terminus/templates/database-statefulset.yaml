@@ -1,0 +1,101 @@
+{{- if .Values.database.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "terminus.database.fullname" . }}
+  labels:
+    {{- include "terminus.componentLabels" (dict "root" . "component" "database") | nindent 4 }}
+  {{- with .Values.database.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ include "terminus.database.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "database") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "database") | nindent 8 }}
+        {{- with .Values.database.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.database.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: postgres
+          image: {{ include "terminus.prefixedImage" (dict "registry" .Values.airgapRegistry "repository" .Values.database.image.repository "tag" .Values.database.image.tag) }}
+          imagePullPolicy: {{ .Values.database.image.pullPolicy }}
+          ports:
+            - name: postgres
+              containerPort: {{ .Values.database.port }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.database.auth.username | quote }}
+            - name: POSTGRES_DB
+              value: {{ .Values.database.auth.database | quote }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.database.auth.password | quote }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec pg_isready -U {{ .Values.database.auth.username }} -d {{ .Values.database.auth.database }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec pg_isready -U {{ .Values.database.auth.username }} -d {{ .Values.database.auth.database }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          {{- with .Values.database.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if and .Values.database.persistence.enabled .Values.database.persistence.existingClaim }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.database.persistence.existingClaim }}
+      {{- else if not .Values.database.persistence.enabled }}
+      volumes:
+        - name: data
+          emptyDir: {}
+      {{- end }}
+  {{- if and .Values.database.persistence.enabled (not .Values.database.persistence.existingClaim) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        {{- with .Values.database.persistence.annotations }}
+        annotations:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          {{- toYaml .Values.database.persistence.accessModes | nindent 10 }}
+        resources:
+          requests:
+            storage: {{ .Values.database.persistence.size }}
+        {{- if .Values.database.persistence.storageClass }}
+        storageClassName: {{ .Values.database.persistence.storageClass }}
+        {{- end }}
+  {{- end }}
+{{- end }}

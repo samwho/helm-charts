@@ -1,0 +1,140 @@
+image:
+  repository: ghcr.io/usetrmnl/terminus
+  tag: latest
+  pullPolicy: IfNotPresent
+
+airgapRegistry: ""
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+commonLabels: {}
+
+appSecret:
+  value: "changeme"
+  existingSecret: ""
+  existingSecretKey: app-secret
+
+hanamiPort: 2345
+apiURI: "http://localhost:2345"
+
+web:
+  replicaCount: 1
+  annotations: {}
+  podAnnotations: {}
+  podLabels: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  extraEnv: []
+  persistence:
+    enabled: true
+    existingClaim: ""
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+    annotations: {}
+  service:
+    type: ClusterIP
+    annotations: {}
+    port: 2345
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+    hosts:
+      - host: terminus.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+
+worker:
+  enabled: true
+  replicaCount: 1
+  command:
+    - bundle
+    - exec
+    - sidekiq
+    - -r
+    - ./config/sidekiq.rb
+  annotations: {}
+  podAnnotations: {}
+  podLabels: {}
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  extraEnv: []
+
+database:
+  enabled: true
+  url: ""
+  host: ""
+  port: 5432
+  image:
+    repository: postgres
+    tag: "16"
+    pullPolicy: IfNotPresent
+  auth:
+    username: terminus
+    password: terminus
+    database: terminus_production
+  annotations: {}
+  podAnnotations: {}
+  podLabels: {}
+  service:
+    annotations: {}
+  resources: {}
+  persistence:
+    enabled: true
+    existingClaim: ""
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+    annotations: {}
+
+redis:
+  enabled: true
+  url: ""
+  host: ""
+  port: 6379
+  password: terminus
+  database: 0
+  image:
+    repository: redis
+    tag: "7-alpine"
+    pullPolicy: IfNotPresent
+  annotations: {}
+  podAnnotations: {}
+  podLabels: {}
+  service:
+    annotations: {}
+  resources: {}
+  persistence:
+    enabled: true
+    existingClaim: ""
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 2Gi
+    annotations: {}
+
+serviceAccount:
+  create: false
+  name: ""
+  annotations: {}
+  automount: true
+
+ingressShim:
+  enabled: false
+
+extraEnv: []
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,75 @@
+{{- if .Values.worker.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "terminus.worker.fullname" . }}
+  labels:
+    {{- include "terminus.componentLabels" (dict "root" . "component" "worker") | nindent 4 }}
+  {{- with .Values.worker.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "worker") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "worker") | nindent 8 }}
+        {{- with .Values.worker.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.worker.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if or .Values.serviceAccount.create .Values.serviceAccount.name }}
+      serviceAccountName: {{ include "terminus.serviceAccountName" . }}
+      {{- end }}
+      containers:
+        - name: worker
+          image: {{ include "terminus.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.worker.command }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-app" (include "terminus.fullname" .)) .Values.appSecret.existingSecret }}
+                  key: {{ .Values.appSecret.existingSecretKey | default "app-secret" }}
+            - name: DATABASE_URL
+              value: {{ include "terminus.database.url" . | quote }}
+            - name: REDIS_URL
+              value: {{ include "terminus.redis.url" . | quote }}
+          {{- with .Values.worker.extraEnv }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.worker.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.worker.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

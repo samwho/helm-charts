@@ -1,0 +1,20 @@
+{{- if .Values.database.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "terminus.database.fullname" . }}
+  labels:
+    {{- include "terminus.componentLabels" (dict "root" . "component" "database") | nindent 4 }}
+  {{- with .Values.database.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ports:
+    - name: postgres
+      port: {{ .Values.database.port }}
+      targetPort: postgres
+  selector:
+    {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "database") | nindent 4 }}
+  type: ClusterIP
+{{- end }}

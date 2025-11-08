@@ -1,0 +1,105 @@
+{{- if .Values.redis.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "terminus.redis.fullname" . }}
+  labels:
+    {{- include "terminus.componentLabels" (dict "root" . "component" "redis") | nindent 4 }}
+  {{- with .Values.redis.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ include "terminus.redis.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "redis") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "terminus.componentSelectorLabels" (dict "root" . "component" "redis") | nindent 8 }}
+        {{- with .Values.redis.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.redis.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: redis
+          image: {{ include "terminus.prefixedImage" (dict "registry" .Values.airgapRegistry "repository" .Values.redis.image.repository "tag" .Values.redis.image.tag) }}
+          imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
+          ports:
+            - name: redis
+              containerPort: {{ .Values.redis.port }}
+          command:
+            - redis-server
+            - "--requirepass"
+            - {{ .Values.redis.password | quote }}
+            - "--port"
+            - {{ printf "%v" .Values.redis.port | quote }}
+          env:
+            - name: REDIS_PASSWORD
+              value: {{ .Values.redis.password | quote }}
+            - name: REDIS_DATABASE
+              value: {{ printf "%v" (default 0 .Values.redis.database) | quote }}
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -a ${REDIS_PASSWORD} -n ${REDIS_DATABASE} ping
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -a ${REDIS_PASSWORD} -n ${REDIS_DATABASE} ping
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          {{- with .Values.redis.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if and .Values.redis.persistence.enabled .Values.redis.persistence.existingClaim }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.redis.persistence.existingClaim }}
+      {{- else if not .Values.redis.persistence.enabled }}
+      volumes:
+        - name: data
+          emptyDir: {}
+      {{- end }}
+  {{- if and .Values.redis.persistence.enabled (not .Values.redis.persistence.existingClaim) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        {{- with .Values.redis.persistence.annotations }}
+        annotations:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          {{- toYaml .Values.redis.persistence.accessModes | nindent 10 }}
+        resources:
+          requests:
+            storage: {{ .Values.redis.persistence.size }}
+        {{- if .Values.redis.persistence.storageClass }}
+        storageClassName: {{ .Values.redis.persistence.storageClass }}
+        {{- end }}
+  {{- end }}
+{{- end }}

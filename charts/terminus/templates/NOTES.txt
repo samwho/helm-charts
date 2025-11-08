@@ -1,0 +1,25 @@
+Thanks for installing Terminus!
+
+Web service:
+  Release namespace : {{ .Release.Namespace }}
+  Service name      : {{ include "terminus.web.fullname" . }}
+  Service port      : {{ .Values.web.service.port }}
+
+{{- if .Values.web.ingress.enabled }}
+The ingress rules render as:
+{{- range $host := .Values.web.ingress.hosts }}
+  - {{ $host.host -}}:
+    {{- range $path := $host.paths }}
+    * http{{ if $.Values.web.ingress.tls }}s{{ end }}://{{ $host.host }}{{ $path.path }}
+    {{- end }}
+{{- end }}
+{{- else }}
+To reach the UI from your workstation run:
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "terminus.web.fullname" . }} 8080:{{ .Values.web.service.port }}
+and open http://127.0.0.1:8080
+{{- end }}
+
+Environment:
+  HANAMI_PORT = {{ .Values.hanamiPort }}
+  API_URI     = {{ .Values.apiURI }}
+  DATABASE_URL and REDIS_URL are injected automatically based on the chart values.
