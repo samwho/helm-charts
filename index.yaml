@@ -345,6 +345,20 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/paperless-ng-0.1.0/paperless-ng-0.1.0.tgz
     version: 0.1.0
+  terminus:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2025-11-08T12:27:28.871869591Z"
+    description: Deploy the Terminus (BYOS Hanami) stack including the web UI, worker,
+      PostgreSQL, and Redis.
+    digest: c89bef20f0b163bbcf3071b802ba6fc473c7a57fc0c28cf004c64e2b6fbd6e7e
+    name: terminus
+    sources:
+    - https://github.com/usetrmnl/byos_hanami
+    type: application
+    urls:
+    - https://github.com/samwho/helm-charts/releases/download/terminus-0.1.0/terminus-0.1.0.tgz
+    version: 0.1.0
   uptime-kuma:
   - apiVersion: v2
     appVersion: 1.23.16
@@ -356,4 +370,4 @@ entries:
     urls:
     - https://github.com/samwho/helm-charts/releases/download/uptime-kuma-0.1.0/uptime-kuma-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-19T15:01:02.880786109Z"
+generated: "2025-11-08T12:27:28.871950432Z"
