@@ -23,12 +23,16 @@ paperless:
     # media_root: /usr/src/paperless-volume/media
     # static_dir: /usr/src/paperless-volume/static
     # consumer_polling: 60
+    # consumer_polling_interval: 60  # Paperless-ngx v3; use instead of consumer_polling
     # admin_user: admin
     # admin_password: password
     # auto_login_username: admin
     # enable_http_remote_user: false
     # http_remote_user_header_name: HTTP_REMOTE_USER
     # url: my.paperless.url.com
+  # Extra environment variables for the Paperless container. Supports valueFrom
+  # so PAPERLESS_SECRET_KEY can come from an existing Kubernetes Secret on v3.
+  extraEnv: []
 
 imagePullSecrets: []
 nameOverride: ""

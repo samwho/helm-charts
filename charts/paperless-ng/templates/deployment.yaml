@@ -83,6 +83,10 @@ spec:
           - name: PAPERLESS_CONSUMER_POLLING
             value: {{ .Values.paperless.config.consumer_polling | quote }}
           {{- end }}
+          {{- if .Values.paperless.config.consumer_polling_interval }}
+          - name: PAPERLESS_CONSUMER_POLLING_INTERVAL
+            value: {{ .Values.paperless.config.consumer_polling_interval | quote }}
+          {{- end }}
           {{- if .Values.paperless.config.admin_user }}
           - name: PAPERLESS_ADMIN_USER
             value: {{ .Values.paperless.config.admin_user | quote }}
@@ -106,6 +110,9 @@ spec:
           {{- if .Values.paperless.config.url }}
           - name: PAPERLESS_URL
             value: {{ .Values.paperless.config.url | quote }}
+          {{- end }}
+          {{- with .Values.paperless.extraEnv }}
+          {{- toYaml . | nindent 10 }}
           {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
