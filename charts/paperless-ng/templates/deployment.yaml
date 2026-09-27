@@ -6,6 +6,8 @@ metadata:
     {{- include "paperless-ng.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "paperless-ng.selectorLabels" . | nindent 6 }}
