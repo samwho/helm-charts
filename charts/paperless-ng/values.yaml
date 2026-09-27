@@ -10,6 +10,12 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.16.5"
 
+redis:
+  image:
+    repository: redis
+    tag: "8.10.2"
+    pullPolicy: IfNotPresent
+
 paperless:
   config:
     {}
